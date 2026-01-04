@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Brothers - Agreement URL Generator</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px double #333;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-circle {
+            border: 4px solid #333;
+            border-radius: 50%;
+            padding: 15px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-size: 24pt;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 12pt;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            font-size: 14pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #bc9c22;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 11pt;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #bc9c22;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #bc9c22, #a68a1e);
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d4af37, #bc9c22);
+            box-shadow: 0 10px 25px rgba(188, 156, 34, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fefcf0 0%, #faf6e8 100%);
+            border: 3px solid #bc9c22;
+            border-radius: 8px;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-section h3 {
+            font-size: 12pt;
+            text-transform: uppercase;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .url-display {
+            background: white;
+            padding: 15px;
+            border: 2px solid #bc9c22;
+            border-radius: 4px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            width: auto;
+            display: inline-block;
+            padding: 12px 30px;
+            margin-right: 10px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #5cb85f, #4CAF50);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            width: auto;
+            display: inline-block;
+            padding: 12px 30px;
+        }
+
+        .open-btn:hover {
+            background: linear-gradient(135deg, #5dade2, #3498db);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 20pt;
+            }
+
+            .copy-btn, .open-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <img src="https://github.com/infotraderbrothers-lgtm/traderbrothers-assets-logo/blob/main/Trader%20Brothers.png?raw=true" alt="Trader Brothers Logo">
+                </div>
+                <div>
+                    <h1>Agreement URL Generator</h1>
+                    <div class="tagline">Create Service Agreement Links</div>
+                </div>
+            </div>
+        </div>
+
+        <form id="agreementForm">
+            <div class="section">
+                <h2>Client Information</h2>
+                
+                <div class="form-group">
+                    <label for="client_name">Client Name</label>
+                    <input type="text" id="client_name" placeholder="e.g., John Smith">
+                </div>
+
+                <div class="form-group">
+                    <label for="client_email">Client Email</label>
+                    <input type="text" id="client_email" placeholder="e.g., john.smith@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="client_phone">Client Phone</label>
+                    <input type="text" id="client_phone" placeholder="e.g., 07700 900123">
+                </div>
+
+                <div class="form-group">
+                    <label for="client_address">Client Address</label>
+                    <input type="text" id="client_address" placeholder="e.g., 123 Main Street, London">
+                </div>
+
+                <div class="form-group">
+                    <label for="client_postcode">Client Postcode</label>
+                    <input type="text" id="client_postcode" placeholder="e.g., SW1A 1AA">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Scope of Work</h2>
+                
+                <div class="form-group">
+                    <label for="work_to_be_done">The Work To Be Done</label>
+                    <input type="text" id="work_to_be_done" placeholder="e.g., Install custom fitted wardrobes in master bedroom">
+                </div>
+
+                <div class="form-group">
+                    <label for="materials_supplies">Materials and Supplies</label>
+                    <input type="text" id="materials_supplies" placeholder="e.g., Oak wood panels, soft-close hinges, LED lighting">
+                </div>
+
+                <div class="form-group">
+                    <label for="cleanup">Cleanup</label>
+                    <input type="text" id="cleanup" placeholder="e.g., All construction debris removed daily, final deep clean included">
+                </div>
+
+                <div class="form-group">
+                    <label for="exclusions">What Is NOT Included (Exclusions)</label>
+                    <input type="text" id="exclusions" placeholder="e.g., Electrical work, painting walls, carpet removal">
+                </div>
+
+                <div class="form-group">
+                    <label for="changes">Changes to the Job</label>
+                    <input type="text" id="changes" placeholder="e.g., All changes must be agreed in writing with revised quote">
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Generate Agreement URL</button>
+        </form>
+
+        <div id="resultSection" class="result-section">
+            <h3>✓ Agreement URL Generated</h3>
+            <p style="margin-bottom: 15px;">Copy and share this URL with your client:</p>
+            <div class="url-display" id="urlDisplay"></div>
+            <button type="button" class="btn copy-btn" onclick="copyURL()">📋 Copy URL</button>
+            <button type="button" class="btn open-btn" onclick="openURL()">🔗 Open Agreement</button>
+            <div class="success-message" id="successMessage">✓ URL copied to clipboard!</div>
+        </div>
+    </div>
+
+    <script>
+        let generatedURL = '';
+
+        document.getElementById('agreementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const baseURL = 'https://infotraderbrothers-lgtm.github.io/Client-Service-Agreement/';
+            
+            const params = new URLSearchParams();
+            params.append('client_name', document.getElementById('client_name').value);
+            params.append('client_email', document.getElementById('client_email').value);
+            params.append('client_phone', document.getElementById('client_phone').value);
+            params.append('client_address', document.getElementById('client_address').value);
+            params.append('client_postcode', document.getElementById('client_postcode').value);
+            params.append('work_to_be_done', document.getElementById('work_to_be_done').value);
+            params.append('materials_supplies', document.getElementById('materials_supplies').value);
+            params.append('cleanup', document.getElementById('cleanup').value);
+            params.append('exclusions', document.getElementById('exclusions').value);
+            params.append('changes', document.getElementById('changes').value);
+            
+            generatedURL = baseURL + '?' + params.toString();
+            
+            document.getElementById('urlDisplay').textContent = generatedURL;
+            document.getElementById('resultSection').classList.add('active');
+            
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        function copyURL() {
+            navigator.clipboard.writeText(generatedURL).then(function() {
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('active');
+                setTimeout(function() {
+                    successMsg.classList.remove('active');
+                }, 3000);
+            }).catch(function(err) {
+                alert('Failed to copy URL. Please copy it manually.');
+            });
+        }
+
+        function openURL() {
+            window.open(generatedURL, '_blank');
+        }
+    </script>
+</body>
+</html>
